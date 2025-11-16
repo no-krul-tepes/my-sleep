@@ -133,6 +133,64 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Create Production GitHub OAuth App
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
+2. Click "OAuth Apps" → "New OAuth App"
+3. Fill in with **production** details:
+   - **Application name**: Sleep Tracker Production
+   - **Homepage URL**: `https://your-domain.vercel.app` (or your custom domain)
+   - **Authorization callback URL**: `https://your-domain.vercel.app/api/auth/callback/github`
+4. Click "Register application"
+5. Copy the **Client ID** and generate a new **Client Secret**
+
+### 2. Set Environment Variables on Vercel
+
+Go to your Vercel project settings → Environment Variables and add:
+
+```env
+# Database (use your production PostgreSQL URL)
+DATABASE_URL=postgresql://user:password@host:5432/database
+
+# NextAuth
+AUTH_SECRET=your-production-secret-from-openssl-rand-base64-32
+NEXTAUTH_URL=https://your-domain.vercel.app
+
+# GitHub OAuth (production credentials from step 1)
+GITHUB_CLIENT_ID=your-production-github-client-id
+GITHUB_CLIENT_SECRET=your-production-github-client-secret
+
+# Node Environment
+NODE_ENV=production
+```
+
+**⚠️ IMPORTANT**:
+- Use a **different** `AUTH_SECRET` than your local development
+- Generate it with: `openssl rand -base64 32`
+- Use the **production** GitHub OAuth credentials (not your dev ones)
+- Make sure `NEXTAUTH_URL` matches your Vercel domain exactly
+
+### 3. Run Database Migrations
+
+After setting environment variables, you need to initialize the production database:
+
+```bash
+# Connect to your production database and run migrations
+# Option 1: Using Vercel CLI
+vercel env pull .env.production.local
+bun run db:migrate
+
+# Option 2: Or run migrations directly on your production DB
+# (update DATABASE_URL to point to production)
+```
+
+### 4. Deploy
+
+```bash
+# Deploy to Vercel
+vercel deploy --prod
+```
+
+Or connect your GitHub repository to Vercel for automatic deployments.
+
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
