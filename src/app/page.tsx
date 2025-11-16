@@ -5,7 +5,9 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { SleepEntryForm } from '@/components/sleep/SleepEntryForm';
 import { SleepLogList } from '@/components/sleep/SleepLogList';
 import { Modal } from '@/components/ui/Modal';
@@ -16,9 +18,18 @@ import { useSleepForm } from '@/hooks/useSleepForm';
 import type { SleepLog, CreateSleepLogDTO } from '@/lib/types';
 
 export default function DashboardPage() {
+  const { status } = useSession();
+  const router = useRouter();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingLog, setEditingLog] = useState<SleepLog | null>(null);
+
+  // Redirect to signin if not authenticated
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/auth/signin');
+    }
+  }, [status, router]);
 
   const { logs, isLoading, refetch } = useSleepLogs({ limit: 50 });
   const { createSleepLog, updateSleepLog, deleteSleepLog, isSubmitting } =
@@ -51,6 +62,23 @@ export default function DashboardPage() {
       refetch();
     }
   };
+
+  // Show loading while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="text-4xl mb-4">💤</div>
+          <p className="text-gray-600">Загрузка...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render anything if not authenticated (redirecting)
+  if (status === 'unauthenticated') {
+    return null;
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 md:py-8 pb-20 md:pb-8">

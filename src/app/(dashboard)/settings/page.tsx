@@ -5,9 +5,39 @@
 
 'use client';
 
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 
 export default function SettingsPage() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  // Redirect to signin if not authenticated
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/auth/signin');
+    }
+  }, [status, router]);
+
+  // Show loading while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="text-4xl mb-4">💤</div>
+          <p className="text-gray-600">Загрузка...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render anything if not authenticated (redirecting)
+  if (status === 'unauthenticated') {
+    return null;
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 md:py-8 pb-20 md:pb-8">
       <div className="mb-6 md:mb-8">
