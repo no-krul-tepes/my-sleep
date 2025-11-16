@@ -6,8 +6,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Button } from '../../../../Downloads/sleep-app-complete/sleep-app/src/components/ui/Button';
-import { Card, CardContent } from '../../../../Downloads/sleep-app-complete/sleep-app/src/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent } from '@/components/ui/Card';
 
 export default function Error({
   error,

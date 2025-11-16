@@ -4,9 +4,9 @@
  */
 
 import { NextResponse } from 'next/server';
-import { runMigrations, verifySchema } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/db/migrations';
-import { db } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/db/client';
-import { logError } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/errors';
+import { runMigrations, verifySchema } from '@/lib/db/migrations';
+import { db } from '@/lib/db/client';
+import { logError } from '@/lib/errors';
 
 export async function GET() {
   try {

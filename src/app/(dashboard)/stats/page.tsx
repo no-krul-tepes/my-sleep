@@ -6,9 +6,9 @@
 'use client';
 
 import { useState } from 'react';
-import { SleepStatistics } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/components/sleep/SleepStatistics';
-import { Button } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/components/ui/Button';
-import { useStatistics } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/hooks/useStatistics';
+import { SleepStatistics } from '@/components/sleep/SleepStatistics';
+import { Button } from '@/components/ui/Button';
+import { useStatistics } from '@/hooks/useStatistics';
 
 type Period = 'week' | 'month' | 'all';
 

@@ -6,14 +6,14 @@
 'use client';
 
 import { useState } from 'react';
-import { SleepEntryForm } from '../../../../Downloads/sleep-app-complete/sleep-app/src/components/sleep/SleepEntryForm';
-import { SleepLogList } from '../../../../Downloads/sleep-app-complete/sleep-app/src/components/sleep/SleepLogList';
-import { Modal } from '../../../../Downloads/sleep-app-complete/sleep-app/src/components/ui/Modal';
-import { Button } from '../../../../Downloads/sleep-app-complete/sleep-app/src/components/ui/Button';
-import { Card } from '../../../../Downloads/sleep-app-complete/sleep-app/src/components/ui/Card';
-import { useSleepLogs } from '../../../../Downloads/sleep-app-complete/sleep-app/src/hooks/useSleepLogs';
-import { useSleepForm } from '../../../../Downloads/sleep-app-complete/sleep-app/src/hooks/useSleepForm';
-import type { SleepLog, CreateSleepLogDTO } from '../../../../Downloads/sleep-app-complete/sleep-app/src/lib/types';
+import { SleepEntryForm } from '@/components/sleep/SleepEntryForm';
+import { SleepLogList } from '@/components/sleep/SleepLogList';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { useSleepLogs } from '@/hooks/useSleepLogs';
+import { useSleepForm } from '@/hooks/useSleepForm';
+import type { SleepLog, CreateSleepLogDTO } from '@/lib/types';
 
 export default function DashboardPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);

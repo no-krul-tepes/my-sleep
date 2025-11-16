@@ -5,8 +5,8 @@
 
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Header } from '../../../../Downloads/sleep-app-complete/sleep-app/src/components/layout/Header';
-import '../../../../Downloads/sleep-app-complete/sleep-app/src/styles/globals.css';
+import { Header } from '@/components/layout/Header';
+import '@/styles/globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -6,14 +6,14 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { sleepService } from '../../../../../../../Downloads/sleep-app-complete/sleep-app/src/services/sleep-service';
-import { updateSleepLogSchema, uuidSchema } from '../../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/validation';
+import { sleepService } from '@/services/sleep-service';
+import { updateSleepLogSchema, uuidSchema } from '@/lib/validation';
 import {
   AppError,
   NotFoundError,
   logError,
   getErrorMessage,
-} from '../../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/errors';
+} from '@/lib/errors';
 
 interface RouteContext {
   params: Promise<{ id: string }>;

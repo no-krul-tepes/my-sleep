@@ -5,19 +5,19 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { sleepService } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/services/sleep-service';
+import { sleepService } from '@/services/sleep-service';
 import {
   createSleepLogSchema,
   queryParamsSchema,
-} from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/validation';
+} from '@/lib/validation';
 import {
   AppError,
   ValidationError,
   logError,
   getErrorMessage,
-} from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/errors';
-import { parseSafeDate, parseIntSafe } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/utils';
-import { API_DEFAULTS } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/lib/constants';
+} from '@/lib/errors';
+import { parseSafeDate, parseIntSafe } from '@/lib/utils';
+import { API_DEFAULTS } from '@/lib/constants';
 
 /**
  * GET /api/sleep-logs

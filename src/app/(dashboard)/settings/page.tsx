@@ -5,8 +5,8 @@
 
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/components/ui/Card';
-import { Button } from '../../../../../../Downloads/sleep-app-complete/sleep-app/src/components/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 export default function SettingsPage() {
   const handleInitDatabase = async () => {
