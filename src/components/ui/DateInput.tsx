@@ -7,7 +7,6 @@
 
 import { InputHTMLAttributes, forwardRef } from 'react';
 import { clsx } from 'clsx';
-import { format } from 'date-fns';
 
 interface DateInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {

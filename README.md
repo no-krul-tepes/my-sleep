@@ -1,24 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sleep Logging App
+
+A modern sleep tracking application built with Next.js 16, PostgreSQL, and Bun runtime.
+
+## Features
+
+- Track sleep sessions with start/end times
+- Quality ratings and notes for each session
+- Statistics and analytics dashboard
+- Responsive UI with Tailwind CSS
+- Type-safe API with Zod validation
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Runtime**: Bun
+- **Database**: PostgreSQL
+- **Styling**: Tailwind CSS v4
+- **Validation**: Zod
+- **Charts**: Recharts
+- **Date handling**: date-fns
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- [Bun](https://bun.sh/) >= 1.0.0
+- PostgreSQL database
+- Node.js >= 20.0.0 (for compatibility)
+
+### Installation
+
+1. Clone the repository and install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+bun install
+```
+
+2. Create a `.env` file in the root directory with your database credentials:
+
+```env
+DATABASE_URL=postgresql://user:password@localhost:5432/sleep_app
+NODE_ENV=development
+```
+
+### Database Setup (IMPORTANT - Security)
+
+**⚠️ For security reasons, database initialization must be done via CLI scripts, NOT through the web interface.**
+
+Initialize the database schema:
+
+```bash
+# Run migrations to create tables and indexes
+bun run db:migrate
+```
+
+Optional - Add sample data for testing:
+
+```bash
+# Seed the database with example sleep logs
+bun run db:seed
+```
+
+### Development
+
+Start the development server:
+
+```bash
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+bun run build
+bun start
+```
 
 ## Learn More
 

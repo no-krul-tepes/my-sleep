@@ -6,25 +6,8 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 
 export default function SettingsPage() {
-  const handleInitDatabase = async () => {
-    try {
-      const response = await fetch('/api/init');
-      const data = await response.json();
-
-      if (response.ok) {
-        alert('Database initialized successfully!');
-      } else {
-        alert(`Failed to initialize database: ${data.error}`);
-      }
-    } catch (error) {
-      alert('Error initializing database');
-      console.error(error);
-    }
-  };
-
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
@@ -35,29 +18,6 @@ export default function SettingsPage() {
       </div>
 
       <div className="space-y-6">
-        {/* Database Settings */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Database</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-medium text-gray-900 mb-2">
-                  Initialize Database
-                </h4>
-                <p className="text-sm text-gray-600 mb-4">
-                  Run database migrations to create tables and indexes. This
-                  only needs to be done once on first setup.
-                </p>
-                <Button onClick={handleInitDatabase} variant="secondary">
-                  🔧 Initialize Database
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* About */}
         <Card>
           <CardHeader>

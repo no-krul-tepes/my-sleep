@@ -50,20 +50,20 @@ export async function GET(request: NextRequest) {
 
     const { date_from, date_to, limit } = queryValidation.data;
 
-    // Parse dates
-    const dateFrom = date_from ? parseSafeDate(date_from) : undefined;
-    const dateTo = date_to ? parseSafeDate(date_to) : undefined;
+    // Parse dates (handle null and undefined)
+    const dateFrom = date_from ? (parseSafeDate(date_from) ?? undefined) : undefined;
+    const dateTo = date_to ? (parseSafeDate(date_to) ?? undefined) : undefined;
 
-    if (date_from && !dateFrom) {
+    if (date_from && date_from !== null && !dateFrom) {
       throw new ValidationError('Invalid date_from format. Use ISO 8601');
     }
 
-    if (date_to && !dateTo) {
+    if (date_to && date_to !== null && !dateTo) {
       throw new ValidationError('Invalid date_to format. Use ISO 8601');
     }
 
-    // Parse limit
-    const parsedLimit = limit
+    // Parse limit (handle null and undefined)
+    const parsedLimit = limit && limit !== null
       ? parseIntSafe(limit, API_DEFAULTS.DEFAULT_LIMIT)
       : API_DEFAULTS.DEFAULT_LIMIT;
 

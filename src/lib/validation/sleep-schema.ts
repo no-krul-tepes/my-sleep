@@ -24,8 +24,7 @@ const qualityRatingSchema = z
   .int()
   .min(SLEEP_CONSTRAINTS.MIN_QUALITY_RATING)
   .max(SLEEP_CONSTRAINTS.MAX_QUALITY_RATING)
-  .optional()
-  .nullable();
+  .optional();
 
 /**
  * Notes validation
@@ -35,8 +34,7 @@ const notesSchema = z
   .max(SLEEP_CONSTRAINTS.MAX_NOTES_LENGTH, {
     message: ERROR_MESSAGES.NOTES_TOO_LONG,
   })
-  .optional()
-  .nullable();
+  .optional();
 
 /**
  * Date validation
@@ -108,9 +106,9 @@ export const uuidSchema = z.string().uuid({
  * Query parameters validation
  */
 export const queryParamsSchema = z.object({
-  date_from: z.string().optional(),
-  date_to: z.string().optional(),
-  limit: z.string().optional(),
+  date_from: z.string().nullable().optional(),
+  date_to: z.string().nullable().optional(),
+  limit: z.string().nullable().optional(),
 });
 
 /**

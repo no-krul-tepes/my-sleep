@@ -6,7 +6,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import type { SleepLog, CreateSleepLogDTO } from '@/lib/types';
+import type { CreateSleepLogDTO } from '@/lib/types';
 
 interface UseSleepFormOptions {
   onSuccess?: () => void;

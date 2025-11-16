@@ -19,7 +19,6 @@ export default function DashboardPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingLog, setEditingLog] = useState<SleepLog | null>(null);
-  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   const { logs, isLoading, refetch } = useSleepLogs({ limit: 50 });
   const { createSleepLog, updateSleepLog, deleteSleepLog, isSubmitting } =

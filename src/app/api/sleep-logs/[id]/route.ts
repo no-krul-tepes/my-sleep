@@ -23,7 +23,7 @@ interface RouteContext {
  * GET /api/sleep-logs/[id]
  */
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   context: RouteContext
 ) {
   try {
@@ -161,7 +161,7 @@ export async function PATCH(
  * DELETE /api/sleep-logs/[id]
  */
 export async function DELETE(
-  request: NextRequest,
+  _request: NextRequest,
   context: RouteContext
 ) {
   try {
