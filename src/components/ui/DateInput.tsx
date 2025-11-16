@@ -73,16 +73,16 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
               <button
                 type="button"
                 onClick={handleTodayClick}
-                className="px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors"
+                className="px-2 md:px-3 py-2 text-xs md:text-sm font-medium text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors active:bg-indigo-200"
               >
-                Today
+                Сегодня
               </button>
               <button
                 type="button"
                 onClick={handleYesterdayClick}
-                className="px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors"
+                className="px-2 md:px-3 py-2 text-xs md:text-sm font-medium text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors active:bg-indigo-200"
               >
-                Yesterday
+                Вчера
               </button>
             </div>
           )}

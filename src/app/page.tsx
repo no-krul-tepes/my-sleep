@@ -46,63 +46,68 @@ export default function DashboardPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this sleep log?')) {
+    if (window.confirm('Вы уверены, что хотите удалить эту запись о сне?')) {
       await deleteSleepLog(id);
       refetch();
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 md:py-8 pb-20 md:pb-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
-            Sleep Dashboard
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            Мой сон
           </h1>
-          <p className="text-gray-600 mt-1">
-            Track and analyze your sleep patterns
+          <p className="text-sm md:text-base text-gray-600 mt-1">
+            Отслеживайте и анализируйте свои паттерны сна
           </p>
         </div>
-        <Button onClick={() => setIsCreateModalOpen(true)}>
-          ✨ New Sleep Log
+        <Button
+          onClick={() => setIsCreateModalOpen(true)}
+          className="w-full sm:w-auto"
+        >
+          <span className="mr-2">➕</span>
+          Добавить запись
         </Button>
       </div>
 
       {/* Quick Stats */}
       {logs.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-2 md:gap-4 mb-6 md:mb-8">
           <Card variant="elevated">
-            <div className="text-center py-4">
-              <div className="text-3xl font-bold text-indigo-600">
+            <div className="text-center py-3 md:py-4">
+              <div className="text-xl md:text-3xl font-bold text-indigo-600">
                 {logs.length}
               </div>
-              <div className="text-sm text-gray-600 mt-1">
-                Total Logs
+              <div className="text-xs md:text-sm text-gray-600 mt-0.5 md:mt-1">
+                Записей
               </div>
             </div>
           </Card>
           <Card variant="elevated">
-            <div className="text-center py-4">
-              <div className="text-3xl font-bold text-purple-600">
+            <div className="text-center py-3 md:py-4">
+              <div className="text-xl md:text-3xl font-bold text-purple-600">
                 {Math.round(
                   logs.reduce((sum, log) => sum + log.durationMinutes, 0) /
                     logs.length /
                     60
-                )}h
+                )}ч
               </div>
-              <div className="text-sm text-gray-600 mt-1">
-                Avg Duration
+              <div className="text-xs md:text-sm text-gray-600 mt-0.5 md:mt-1">
+                Средняя длит.
               </div>
             </div>
           </Card>
           <Card variant="elevated">
-            <div className="text-center py-4">
-              <div className="text-3xl font-bold text-green-600">
+            <div className="text-center py-3 md:py-4">
+              <div className="text-xl md:text-3xl font-bold text-green-600">
                 {logs.filter((log) => log.qualityRating && log.qualityRating >= 7)
                   .length}
               </div>
-              <div className="text-sm text-gray-600 mt-1">
-                Good Nights
+              <div className="text-xs md:text-sm text-gray-600 mt-0.5 md:mt-1">
+                Хороших ночей
               </div>
             </div>
           </Card>
@@ -123,7 +128,7 @@ export default function DashboardPage() {
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
-        title="Create Sleep Log"
+        title="Добавить запись о сне"
         size="lg"
       >
         <SleepEntryForm
@@ -140,7 +145,7 @@ export default function DashboardPage() {
           setIsEditModalOpen(false);
           setEditingLog(null);
         }}
-        title="Edit Sleep Log"
+        title="Редактировать запись"
         size="lg"
       >
         {editingLog && (

@@ -49,39 +49,42 @@ export function Modal({
   if (!isOpen) return null;
 
   const sizes = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
+    sm: 'md:max-w-md',
+    md: 'md:max-w-lg',
+    lg: 'md:max-w-2xl',
+    xl: 'md:max-w-4xl',
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-end md:items-center justify-center md:p-4 overflow-y-auto"
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" />
+      <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm transition-opacity" />
 
       {/* Modal */}
       <div
         className={clsx(
-          'relative bg-white rounded-lg shadow-xl w-full',
+          'relative bg-white w-full',
+          'rounded-t-2xl md:rounded-lg shadow-2xl',
+          'max-h-[90vh] md:max-h-[85vh]',
+          'flex flex-col',
           sizes[size]
         )}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between p-6 border-b">
-            <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+          <div className="flex items-center justify-between p-4 md:p-6 border-b sticky top-0 bg-white rounded-t-2xl md:rounded-t-lg z-10">
+            <h2 className="text-lg md:text-xl font-semibold text-gray-900">{title}</h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-              aria-label="Close modal"
+              className="text-gray-400 hover:text-gray-600 transition-colors p-1.5 hover:bg-gray-100 rounded-lg"
+              aria-label="Закрыть"
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 md:w-6 md:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -98,7 +101,7 @@ export function Modal({
         )}
 
         {/* Content */}
-        <div className="p-6">{children}</div>
+        <div className="p-4 md:p-6 overflow-y-auto flex-1">{children}</div>
       </div>
     </div>
   );

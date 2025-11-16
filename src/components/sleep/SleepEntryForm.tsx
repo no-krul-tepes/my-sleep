@@ -44,15 +44,15 @@ export function SleepEntryForm({
     const newErrors: Record<string, string> = {};
 
     if (!formData.sleepDate) {
-      newErrors.sleepDate = 'Sleep date is required';
+      newErrors.sleepDate = 'Дата сна обязательна';
     }
 
     if (!formData.sleptAt || !/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/.test(formData.sleptAt)) {
-      newErrors.sleptAt = 'Invalid time format (HH:MM)';
+      newErrors.sleptAt = 'Неверный формат времени (ЧЧ:ММ)';
     }
 
     if (!formData.wokeAt || !/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/.test(formData.wokeAt)) {
-      newErrors.wokeAt = 'Invalid time format (HH:MM)';
+      newErrors.wokeAt = 'Неверный формат времени (ЧЧ:ММ)';
     }
 
     if (
@@ -60,11 +60,11 @@ export function SleepEntryForm({
       (formData.qualityRating < SLEEP_CONSTRAINTS.MIN_QUALITY_RATING ||
         formData.qualityRating > SLEEP_CONSTRAINTS.MAX_QUALITY_RATING)
     ) {
-      newErrors.qualityRating = `Quality must be between ${SLEEP_CONSTRAINTS.MIN_QUALITY_RATING} and ${SLEEP_CONSTRAINTS.MAX_QUALITY_RATING}`;
+      newErrors.qualityRating = `Качество должно быть от ${SLEEP_CONSTRAINTS.MIN_QUALITY_RATING} до ${SLEEP_CONSTRAINTS.MAX_QUALITY_RATING}`;
     }
 
     if (formData.notes && formData.notes.length > SLEEP_CONSTRAINTS.MAX_NOTES_LENGTH) {
-      newErrors.notes = `Notes cannot exceed ${SLEEP_CONSTRAINTS.MAX_NOTES_LENGTH} characters`;
+      newErrors.notes = `Заметки не могут превышать ${SLEEP_CONSTRAINTS.MAX_NOTES_LENGTH} символов`;
     }
 
     setErrors(newErrors);
@@ -99,9 +99,9 @@ export function SleepEntryForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
       <DateInput
-        label="Sleep Date"
+        label="Дата сна"
         value={formData.sleepDate}
         onChange={(e) =>
           setFormData((prev) => ({ ...prev, sleepDate: e.target.value }))
@@ -114,7 +114,7 @@ export function SleepEntryForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
           type="time"
-          label="Slept At"
+          label="Уснул(а) в"
           value={formData.sleptAt}
           onChange={(e) =>
             setFormData((prev) => ({ ...prev, sleptAt: e.target.value }))
@@ -125,7 +125,7 @@ export function SleepEntryForm({
 
         <Input
           type="time"
-          label="Woke At"
+          label="Проснулся(-лась) в"
           value={formData.wokeAt}
           onChange={(e) =>
             setFormData((prev) => ({ ...prev, wokeAt: e.target.value }))
@@ -136,7 +136,7 @@ export function SleepEntryForm({
       </div>
 
       <Slider
-        label="Sleep Quality"
+        label="Качество сна"
         min={SLEEP_CONSTRAINTS.MIN_QUALITY_RATING}
         max={SLEEP_CONSTRAINTS.MAX_QUALITY_RATING}
         value={formData.qualityRating}
@@ -150,27 +150,27 @@ export function SleepEntryForm({
       />
 
       <TextArea
-        label="Notes"
+        label="Заметки"
         value={formData.notes}
         onChange={(e) =>
           setFormData((prev) => ({ ...prev, notes: e.target.value }))
         }
-        placeholder="How did you sleep? Any observations..."
+        placeholder="Как вы спали? Есть какие-то наблюдения..."
         rows={4}
         maxLength={SLEEP_CONSTRAINTS.MAX_NOTES_LENGTH}
         showCount
         error={errors.notes}
       />
 
-      <div className="flex gap-3">
-        <Button type="submit" isLoading={isLoading} className="flex-1">
-          {initialData ? 'Update' : 'Create'} Sleep Log
-        </Button>
+      <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
         {onCancel && (
-          <Button type="button" variant="ghost" onClick={onCancel}>
-            Cancel
+          <Button type="button" variant="ghost" onClick={onCancel} className="w-full sm:w-auto">
+            Отмена
           </Button>
         )}
+        <Button type="submit" isLoading={isLoading} className="flex-1">
+          {initialData ? 'Обновить' : 'Создать'}
+        </Button>
       </div>
     </form>
   );
