@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/lib/auth/auth';
 import { sleepService } from '@/services/sleep-service';
 import { updateSleepLogSchema, uuidSchema } from '@/lib/validation';
 import {
@@ -27,6 +28,21 @@ export async function GET(
   context: RouteContext
 ) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        {
+          error: {
+            message: 'Необходима авторизация',
+            code: 'UNAUTHORIZED',
+            status: 401,
+          },
+        },
+        { status: 401 }
+      );
+    }
+
     const { id } = await context.params;
 
     // Validate UUID
@@ -89,6 +105,21 @@ export async function PATCH(
   context: RouteContext
 ) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        {
+          error: {
+            message: 'Необходима авторизация',
+            code: 'UNAUTHORIZED',
+            status: 401,
+          },
+        },
+        { status: 401 }
+      );
+    }
+
     const { id } = await context.params;
 
     // Validate UUID
@@ -165,6 +196,21 @@ export async function DELETE(
   context: RouteContext
 ) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        {
+          error: {
+            message: 'Необходима авторизация',
+            code: 'UNAUTHORIZED',
+            status: 401,
+          },
+        },
+        { status: 401 }
+      );
+    }
+
     const { id } = await context.params;
 
     // Validate UUID

@@ -6,6 +6,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
+import { SessionProvider } from '@/components/providers/SessionProvider';
 import '@/styles/globals.css';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
@@ -24,17 +25,19 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={inter.className}>
-        <div className="min-h-screen flex flex-col bg-gradient-to-b from-indigo-50/30 to-white">
-          <Header />
-          <main className="flex-1">
-            {children}
-          </main>
-          <footer className="bg-white/80 backdrop-blur-sm border-t border-gray-200 py-4 md:py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs md:text-sm text-gray-600">
-              © 2025 Дневник Сна. Создано с Next.js 16 & PostgreSQL
-            </div>
-          </footer>
-        </div>
+        <SessionProvider>
+          <div className="min-h-screen flex flex-col bg-gradient-to-b from-indigo-50/30 to-white">
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <footer className="bg-white/80 backdrop-blur-sm border-t border-gray-200 py-4 md:py-6">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs md:text-sm text-gray-600">
+                © 2025 Дневник Сна. Создано с Next.js 16 & PostgreSQL
+              </div>
+            </footer>
+          </div>
+        </SessionProvider>
       </body>
     </html>
   );

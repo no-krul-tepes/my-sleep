@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/lib/auth/auth';
 import { sleepService } from '@/services/sleep-service';
 import {
   createSleepLogSchema,
@@ -25,6 +26,22 @@ import { API_DEFAULTS } from '@/lib/constants';
  */
 export async function GET(request: NextRequest) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        {
+          error: {
+            message: 'Необходима авторизация',
+            code: 'UNAUTHORIZED',
+            status: 401,
+          },
+        },
+        { status: 401 }
+      );
+    }
+
+    const userId = parseInt(session.user.id);
     const searchParams = request.nextUrl.searchParams;
     
     // Parse and validate query parameters
@@ -67,11 +84,12 @@ export async function GET(request: NextRequest) {
       ? parseIntSafe(limit, API_DEFAULTS.DEFAULT_LIMIT)
       : API_DEFAULTS.DEFAULT_LIMIT;
 
-    // Fetch sleep logs
+    // Fetch sleep logs for authenticated user
     const result = await sleepService.getSleepLogs({
       dateFrom,
       dateTo,
       limit: parsedLimit,
+      userId,
     });
 
     return NextResponse.json({
@@ -113,6 +131,22 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        {
+          error: {
+            message: 'Необходима авторизация',
+            code: 'UNAUTHORIZED',
+            status: 401,
+          },
+        },
+        { status: 401 }
+      );
+    }
+
+    const userId = parseInt(session.user.id);
     const body = await request.json();
 
     // Validate request body
@@ -132,8 +166,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create sleep log
-    const sleepLog = await sleepService.createSleepLog(validation.data);
+    // Create sleep log for authenticated user
+    const sleepLog = await sleepService.createSleepLog({
+      ...validation.data,
+      userId,
+    });
 
     return NextResponse.json(
       { data: sleepLog },

@@ -61,11 +61,9 @@ export class SleepService {
   /**
    * Create a new sleep log
    */
-  async createSleepLog(
-    data: CreateSleepLogDTO,
-    userId?: number
-  ): Promise<SleepLog> {
+  async createSleepLog(data: CreateSleepLogDTO): Promise<SleepLog> {
     this.validateSleepData(data);
+    const userId = data.userId || 1; // Fallback to default user
     return this.repository.create(data, userId);
   }
 

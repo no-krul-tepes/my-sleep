@@ -5,6 +5,7 @@
  */
 
 import { runMigrations, verifySchema } from '../lib/db/migrations';
+import { runAuthMigrations, verifyAuthSchema } from '../lib/db/auth-migrations';
 import { db } from '../lib/db/client';
 
 async function main() {
@@ -23,21 +24,36 @@ async function main() {
 
     console.log('✅ Database connection successful\n');
 
-    // Run migrations
-    console.log('📝 Running migrations...');
+    // Run app migrations
+    console.log('📝 Running app migrations...');
     await runMigrations(process.env.NODE_ENV !== 'production');
-    console.log('✅ Migrations completed\n');
+    console.log('✅ App migrations completed\n');
 
-    // Verify schema
-    console.log('🔍 Verifying schema...');
+    // Run auth migrations
+    console.log('🔐 Running auth migrations...');
+    await runAuthMigrations();
+    console.log('✅ Auth migrations completed\n');
+
+    // Verify schemas
+    console.log('🔍 Verifying app schema...');
     const isValid = await verifySchema();
 
     if (!isValid) {
-      console.error('❌ Schema verification failed');
+      console.error('❌ App schema verification failed');
       process.exit(1);
     }
 
-    console.log('✅ Schema verification passed\n');
+    console.log('✅ App schema verification passed\n');
+
+    console.log('🔍 Verifying auth schema...');
+    const isAuthValid = await verifyAuthSchema();
+
+    if (!isAuthValid) {
+      console.error('❌ Auth schema verification failed');
+      process.exit(1);
+    }
+
+    console.log('✅ Auth schema verification passed\n');
 
     // Show pool stats
     const stats = db.getStats();

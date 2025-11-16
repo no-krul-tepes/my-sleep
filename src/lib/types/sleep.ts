@@ -22,6 +22,7 @@ export interface CreateSleepLogDTO {
   wokeAt: string; // HH:MM
   notes?: string;
   qualityRating?: number; // 1-10
+  userId?: number; // Added for API usage
 }
 
 export interface UpdateSleepLogDTO {
@@ -36,7 +37,7 @@ export interface SleepLogFilters {
   dateFrom?: Date;
   dateTo?: Date;
   limit?: number;
-  userId?: number;
+  userId?: number; // Optional, will be set by API
 }
 
 export interface SleepStatistics {
